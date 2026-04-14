@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function CtaSection() {
   return (
     <section id="create" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
@@ -6,14 +8,11 @@ function CtaSection() {
         <div className="pointer-events-none absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-accent-300/50 blur-3xl" />
         <h2 className="font-heading text-4xl font-bold text-slate-900 sm:text-5xl">Create Your Magical Artwork Today</h2>
         <p className="mx-auto mt-6 max-w-3xl text-xl text-slate-600">
-          Join artists and storytellers using Ghibli AI to craft cinematic visuals from ordinary moments.
+          Ignite your imagination with Ghibli AI and transform everyday life into extraordinary cinematic adventures.
         </p>
-        <a
-          href="#home"
-          className="btn-brand mt-10"
-        >
+        <Link to="/create" className="btn-brand mt-10 inline-flex">
           Try Ghibli AI For Free
-        </a>
+        </Link>
       </div>
     </section>
   );

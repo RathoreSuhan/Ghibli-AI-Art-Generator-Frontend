@@ -9,7 +9,9 @@ function Footer() {
             </span>
             <span className="font-heading text-2xl font-bold">Ghibli AI</span>
           </a>
-          <p className="mt-4 text-lg text-slate-600">Inspired by magical storytelling and cinematic illustration aesthetics.</p>
+          <p className="mt-4 bg-gradient-to-r from-amber-700 via-orange-600 to-rose-600 bg-clip-text text-lg font-semibold text-transparent drop-shadow-sm">
+            Ignited by magic, crafted with cinematic artistry.
+          </p>
         </div>
 
         <div>
@@ -43,6 +45,7 @@ function Footer() {
       </div>
       <div className="border-t border-stone-300 py-6 text-center text-base text-slate-500">
         <p>2026 Ghibli AI. All rights reserved.</p>
+        <p className="mt-1 text-sm text-slate-400">Created by Suhan Singh Rathore</p>
       </div>
     </footer>
   );

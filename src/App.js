@@ -1,28 +1,27 @@
-import CtaSection from './components/CtaSection';
-import DetailSection from './components/DetailSection';
-import FaqSection from './components/FaqSection';
-import FeaturesSection from './components/FeaturesSection';
-import Footer from './components/Footer';
-import GallerySection from './components/GallerySection';
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import CreatePage from './components/CreatePage';
+import HomePage from './components/HomePage';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   return (
-    <div className="min-h-screen text-slate-800">
-      <Header />
-
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-        <GallerySection />
-        <DetailSection />
-        <FaqSection />
-        <CtaSection />
-      </main>
-
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/create" element={<CreatePage />} />
+        <Route path="*" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

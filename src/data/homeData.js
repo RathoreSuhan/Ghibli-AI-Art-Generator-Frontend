@@ -1,9 +1,9 @@
 export const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'Create', href: '#create' },
-  { label: 'Features', href: '#features' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Home', href: '/#home' },
+  { label: 'Create', href: '/create' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Gallery', href: '/#gallery' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export const featureCards = [
@@ -26,23 +26,23 @@ export const featureCards = [
 
 export const faqItems = [
   {
-    question: 'What is the Ghibli AI Generator?',
+    question: 'What is the Studio Ghibli AI Generator?',
     answer:
-      'It is a creative tool that transforms your photos into dreamy, animation-inspired artwork with one prompt.',
+      'The Ghibli AI Generator is an advanced platform powered by AI that creates original artwork in the distinctive style of Studio Ghibli films. Our technology transforms photos or text descriptions into beautiful Ghibli art images with authentic aesthetic elements.',
   },
   {
-    question: 'What are the key features?',
+    question: 'What are the key features of the Ghibli AI?',
     answer:
-      'Photo-to-art conversion, text-guided styling, cinematic color mood control, and fast high-quality export.',
+      'Key features include photo-to-Ghibli art transformation, text-to-Ghibli image generation, Ghibli character creation, scene extension, Ghibli background generation, and animation preparation - all in authentic Studio Ghibli style using our specialized Ghibli generator.',
   },
   {
-    question: 'Can I select a specific style mood?',
+    question: 'Can I select specific Ghibli film styles for my Ghibli art?',
     answer:
-      'Yes. You can choose soft daylight, golden dusk, fantasy forest, vintage city, and more style presets.',
+      "Absolutely! You can choose influences from various Studio Ghibli films like 'Spirited Away,' 'Princess Mononoke,' or 'My Neighbor Totoro' and customize the style, mood, and visual elements to reflect your creative vision in the generated Ghibli images.",
   },
   {
-    question: 'Is it mobile friendly?',
+    question: 'Is the Studio Ghibli AI Generator available on mobile?',
     answer:
-      'Yes. The layout is responsive and designed to feel smooth and clear on phones, tablets, and desktop.',
+      'Yes, our Ghibli AI platform is accessible on both desktop and mobile devices via web browsers, allowing you to create Ghibli-style artwork and Ghibli images wherever you are.',
   },
 ];
