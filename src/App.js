@@ -9,7 +9,7 @@ import HeroSection from './components/HeroSection';
 
 function App() {
   return (
-    <div className="min-h-screen bg-stone-100 text-slate-800">
+    <div className="min-h-screen text-slate-800">
       <Header />
 
       <main>

@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="border-t border-stone-300 bg-stone-100">
+    <footer className="border-t border-brand-100 bg-gradient-to-b from-white/90 to-brand-50/40">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
           <a href="#home" className="flex items-center gap-3">
