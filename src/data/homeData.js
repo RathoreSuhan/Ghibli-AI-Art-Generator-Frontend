@@ -24,13 +24,6 @@ export const featureCards = [
   },
 ];
 
-export const galleryItems = [
-  'https://picsum.photos/seed/ghbli1/900/560',
-  'https://picsum.photos/seed/ghbli2/900/560',
-  'https://picsum.photos/seed/ghbli3/900/560',
-  'https://picsum.photos/seed/ghbli4/900/560',
-];
-
 export const faqItems = [
   {
     question: 'What is the Ghibli AI Generator?',
