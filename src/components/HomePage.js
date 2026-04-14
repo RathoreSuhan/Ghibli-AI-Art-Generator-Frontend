@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import CtaSection from './CtaSection';
 import DetailSection from './DetailSection';
 import FaqSection from './FaqSection';
@@ -8,6 +10,35 @@ import Header from './Header';
 import HeroSection from './HeroSection';
 
 function HomePage() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const routeMap = {
+      '/home': { sectionId: 'home', offset: 96 },
+      '/features': { sectionId: 'features', offset: 16 },
+      '/gallery': { sectionId: 'gallery', offset: 16 },
+      '/faq': { sectionId: 'faq', offset: 72 },
+    };
+
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      return;
+    }
+
+    const routeConfig = routeMap[pathname];
+    if (!routeConfig) {
+      return;
+    }
+
+    const section = document.getElementById(routeConfig.sectionId);
+    if (!section) {
+      return;
+    }
+
+    const y = section.getBoundingClientRect().top + window.scrollY - routeConfig.offset;
+    window.scrollTo({ top: Math.max(y, 0), left: 0, behavior: 'smooth' });
+  }, [pathname]);
+
   return (
     <div className="min-h-screen text-slate-800">
       <Header />

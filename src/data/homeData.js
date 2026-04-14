@@ -1,9 +1,9 @@
 export const navItems = [
-  { label: 'Home', href: '/#home' },
+  { label: 'Home', href: '/home' },
   { label: 'Create', href: '/create' },
-  { label: 'Features', href: '/#features' },
-  { label: 'Gallery', href: '/#gallery' },
-  { label: 'FAQ', href: '/#faq' },
+  { label: 'Features', href: '/features' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'FAQ', href: '/faq' },
 ];
 
 export const featureCards = [
