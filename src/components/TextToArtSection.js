@@ -61,6 +61,7 @@ function TextToArtSection() {
 
       const resultBlob = await response.blob();
       setGeneratedImage(URL.createObjectURL(resultBlob));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Error generating image from text:', error);
       setErrorMessage('Failed to generate image. Please ensure backend is running and try again.');
@@ -86,9 +87,13 @@ function TextToArtSection() {
     <div className="mx-auto max-w-4xl rounded-3xl bg-white p-6 shadow-card ring-1 ring-stone-200 sm:p-8">
       <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Text to Ghibli Art</h1>
 
-      <div className="mt-6 flex min-h-[280px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-6 text-center text-lg font-medium text-slate-500 sm:min-h-[300px]">
+      <div className="mt-6 flex min-h-[250px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-4 text-center text-lg font-medium text-slate-500 sm:min-h-[280px]">
         {generatedImage ? (
-          <img src={generatedImage} alt="Generated Ghibli art" className="h-full w-full rounded-xl object-cover" />
+          <img
+            src={generatedImage}
+            alt="Generated Ghibli art"
+            className="max-h-[380px] w-full rounded-xl object-contain sm:max-h-[420px]"
+          />
         ) : (
           <div>
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-stone-300 bg-white text-3xl text-slate-400">
