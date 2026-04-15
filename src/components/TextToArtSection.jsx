@@ -97,10 +97,10 @@ function TextToArtSection() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl rounded-3xl bg-white p-6 shadow-card ring-1 ring-stone-200 sm:p-8">
+    <div className="mx-auto max-w-4xl rounded-3xl bg-white p-5 shadow-card ring-1 ring-stone-200 sm:p-6">
       <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Text to Ghibli Art</h1>
 
-      <div className="mt-6 flex min-h-[250px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-4 text-center text-lg font-medium text-slate-500 sm:min-h-[280px]">
+      <div className="mt-4 flex min-h-[230px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-4 text-center text-lg font-medium text-slate-500 sm:min-h-[260px]">
         {generatedImage ? (
           <img
             src={generatedImage}
@@ -117,7 +117,7 @@ function TextToArtSection() {
         )}
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         <label htmlFor="ghibli-style" className="mb-2 block text-lg font-semibold text-slate-800">
           Ghibli Style
         </label>
@@ -136,7 +136,7 @@ function TextToArtSection() {
         </select>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-3">
         <label htmlFor="text-description" className="mb-2 block text-lg font-semibold text-slate-800">
           Your Description
         </label>
@@ -144,7 +144,7 @@ function TextToArtSection() {
           id="text-description"
           value={description}
           onChange={handleDescriptionChange}
-          className="min-h-24 w-full rounded-xl border border-stone-300 bg-white px-4 py-4 text-base text-slate-700 outline-none transition-shadow placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(180,83,9,0.12)]"
+          className="min-h-20 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base text-slate-700 outline-none transition-shadow placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(180,83,9,0.12)]"
           placeholder="Describe the Ghibli scene you want to create in detail..."
         />
         {errorMessage ? <p className="mt-2 text-sm font-medium text-red-600">{errorMessage}</p> : null}
@@ -155,18 +155,18 @@ function TextToArtSection() {
           type="button"
           onClick={handleGenerateClick}
           disabled={!canGenerate}
-          className={`mt-8 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform ${
+          className={`mt-6 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-3.5 text-lg font-semibold text-white shadow-glow transition-transform ${
             canGenerate ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-60'
           }`}
         >
           {isLoading ? 'Generating...' : 'Generate Ghibli Art'}
         </button>
       ) : (
-        <div className="mt-8 flex gap-4">
+        <div className="mt-6 flex gap-4">
           <button
             type="button"
             onClick={handleDownload}
-            className="flex-1 rounded-xl bg-gradient-to-r from-amber-800 to-brand-700 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            className="flex-1 rounded-xl bg-gradient-to-r from-amber-800 to-brand-700 px-6 py-3.5 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
           >
             <span>⤓</span>
             Download
@@ -174,7 +174,7 @@ function TextToArtSection() {
           <button
             type="button"
             onClick={handleCreateAnother}
-            className="flex-1 rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            className="flex-1 rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-3.5 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
           >
             <span>+</span>
             Create Another

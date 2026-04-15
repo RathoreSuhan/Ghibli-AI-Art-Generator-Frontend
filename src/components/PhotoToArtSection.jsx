@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 function PhotoToArtSection() {
   const MAX_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedPreviewImage, setSelectedPreviewImage] = useState('');
   const [description, setDescription] = useState('');
   const [generatedImage, setGeneratedImage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -15,8 +16,11 @@ function PhotoToArtSection() {
       if (generatedImage) {
         URL.revokeObjectURL(generatedImage);
       }
+      if (selectedPreviewImage) {
+        URL.revokeObjectURL(selectedPreviewImage);
+      }
     };
-  }, [generatedImage]);
+  }, [generatedImage, selectedPreviewImage]);
 
   const handleBrowseClick = () => {
     if (fileInputRef.current) {
@@ -28,7 +32,11 @@ function PhotoToArtSection() {
     const file = event.target.files?.[0] ?? null;
 
     if (file && file.size > MAX_UPLOAD_SIZE_BYTES) {
+      if (selectedPreviewImage) {
+        URL.revokeObjectURL(selectedPreviewImage);
+      }
       setSelectedImage(null);
+      setSelectedPreviewImage('');
       setErrorMessage('Image is too large. Please select an image up to 5MB.');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -36,7 +44,17 @@ function PhotoToArtSection() {
       return;
     }
 
+    if (selectedPreviewImage) {
+      URL.revokeObjectURL(selectedPreviewImage);
+    }
+
+    if (generatedImage) {
+      URL.revokeObjectURL(generatedImage);
+      setGeneratedImage('');
+    }
+
     setSelectedImage(file);
+    setSelectedPreviewImage(file ? URL.createObjectURL(file) : '');
 
     if (errorMessage && file) {
       setErrorMessage('');
@@ -114,9 +132,13 @@ function PhotoToArtSection() {
     if (generatedImage) {
       URL.revokeObjectURL(generatedImage);
     }
+    if (selectedPreviewImage) {
+      URL.revokeObjectURL(selectedPreviewImage);
+    }
 
     setGeneratedImage('');
     setSelectedImage(null);
+    setSelectedPreviewImage('');
     setDescription('');
     setErrorMessage('');
 
@@ -129,11 +151,11 @@ function PhotoToArtSection() {
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <div className="rounded-3xl bg-white p-6 shadow-card ring-1 ring-stone-200 sm:p-8">
+    <div className="grid gap-4 lg:grid-cols-2">
+      <div className="rounded-3xl bg-white p-5 shadow-card ring-1 ring-stone-200 sm:p-6">
         <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Photo to Ghibli Art</h1>
 
-        <div className="mt-6 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50/80 p-6 text-center sm:p-8">
+        <div className="mt-4 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50/80 p-5 text-center sm:p-6">
           <input
             ref={fileInputRef}
             type="file"
@@ -141,27 +163,46 @@ function PhotoToArtSection() {
             onChange={handleImageChange}
             className="hidden"
           />
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-stone-300 bg-white text-2xl text-slate-400">
-            ⌘
-          </div>
-          <p className="mt-5 text-lg font-medium text-slate-600">Drag and drop your image here</p>
-          <p className="mt-1 text-sm text-slate-400">or</p>
-          <button
-            type="button"
-            onClick={handleBrowseClick}
-            className="mt-4 rounded-xl bg-stone-200 px-5 py-3 text-base font-semibold text-slate-700 transition-colors hover:bg-stone-300"
-          >
-            Browse files
-          </button>
-          {selectedImage ? <p className="mt-3 text-sm text-slate-500">Selected: {selectedImage.name}</p> : null}
+          {selectedPreviewImage ? (
+            <div>
+              <img
+                src={selectedPreviewImage}
+                alt="Selected image preview"
+                className="mx-auto max-h-[220px] w-full rounded-xl object-contain sm:max-h-[250px]"
+              />
+              {selectedImage ? <p className="mt-3 text-sm text-slate-500">Selected: {selectedImage.name}</p> : null}
+              <button
+                type="button"
+                onClick={handleBrowseClick}
+                className="mt-4 rounded-xl bg-stone-200 px-5 py-3 text-base font-semibold text-slate-700 transition-colors hover:bg-stone-300"
+              >
+                Browse another file
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-stone-300 bg-white text-2xl text-slate-400">
+                ⌘
+              </div>
+              <p className="mt-5 text-lg font-medium text-slate-600">Drag and drop your image here</p>
+              <p className="mt-1 text-sm text-slate-400">or</p>
+              <button
+                type="button"
+                onClick={handleBrowseClick}
+                className="mt-4 rounded-xl bg-stone-200 px-5 py-3 text-base font-semibold text-slate-700 transition-colors hover:bg-stone-300"
+              >
+                Browse files
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="mt-6">
+        <div className="mt-4">
           <label className="mb-2 block text-lg font-semibold text-slate-800">Additional Details</label>
           <textarea
             value={description}
             onChange={handleDescriptionChange}
-            className="min-h-24 w-full rounded-xl border border-stone-300 bg-white px-4 py-4 text-base text-slate-700 outline-none transition-shadow placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(180,83,9,0.12)]"
+            className="min-h-20 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base text-slate-700 outline-none transition-shadow placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(180,83,9,0.12)]"
             placeholder="Add any specific details or enhancements..."
           />
         </div>
@@ -170,7 +211,7 @@ function PhotoToArtSection() {
           type="button"
           onClick={handleTransformClick}
           disabled={!canTransform}
-          className={`mt-8 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform ${
+          className={`mt-6 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-3.5 text-lg font-semibold text-white shadow-glow transition-transform ${
             canTransform ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-60'
           }`}
         >
@@ -179,8 +220,8 @@ function PhotoToArtSection() {
         {errorMessage ? <p className="mt-3 text-sm font-medium text-red-600">{errorMessage}</p> : null}
       </div>
 
-      <div className="rounded-3xl bg-white p-6 shadow-card ring-1 ring-stone-200 sm:p-8">
-        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-6 text-center text-lg font-medium text-slate-500 sm:min-h-[380px]">
+      <div className="rounded-3xl bg-white p-5 shadow-card ring-1 ring-stone-200 sm:p-6">
+        <div className="flex min-h-[250px] items-center justify-center rounded-2xl border border-stone-200 bg-stone-50/80 p-4 text-center text-lg font-medium text-slate-500 sm:min-h-[280px]">
           {generatedImage ? (
             <img
               src={generatedImage}
