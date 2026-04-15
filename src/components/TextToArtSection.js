@@ -83,6 +83,19 @@ function TextToArtSection() {
     document.body.removeChild(link);
   };
 
+  // Reset form and generated image when user wants to create another image
+  const handleCreateAnother = () => {
+    if (generatedImage) {
+      URL.revokeObjectURL(generatedImage);
+    }
+    setGeneratedImage('');
+    setDescription('');
+    setStyle('general');
+    setErrorMessage('');
+    // Scroll to top after resetting for new generation
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="mx-auto max-w-4xl rounded-3xl bg-white p-6 shadow-card ring-1 ring-stone-200 sm:p-8">
       <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Text to Ghibli Art</h1>
@@ -137,26 +150,37 @@ function TextToArtSection() {
         {errorMessage ? <p className="mt-2 text-sm font-medium text-red-600">{errorMessage}</p> : null}
       </div>
 
-      <button
-        type="button"
-        onClick={handleGenerateClick}
-        disabled={!canGenerate}
-        className={`mt-8 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform ${
-          canGenerate ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-60'
-        }`}
-      >
-        {isLoading ? 'Generating...' : 'Generate Ghibli Art'}
-      </button>
-
-      {generatedImage ? (
+      {!generatedImage ? (
         <button
           type="button"
-          onClick={handleDownload}
-          className="mt-4 w-full rounded-xl border border-stone-300 bg-white px-6 py-4 text-lg font-semibold text-slate-700 transition-colors hover:bg-stone-100"
+          onClick={handleGenerateClick}
+          disabled={!canGenerate}
+          className={`mt-8 w-full rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform ${
+            canGenerate ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-60'
+          }`}
         >
-          Download Ghibli Image
+          {isLoading ? 'Generating...' : 'Generate Ghibli Art'}
         </button>
-      ) : null}
+      ) : (
+        <div className="mt-8 flex gap-4">
+          <button
+            type="button"
+            onClick={handleDownload}
+            className="flex-1 rounded-xl bg-gradient-to-r from-amber-800 to-brand-700 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+          >
+            <span>⤓</span>
+            Download
+          </button>
+          <button
+            type="button"
+            onClick={handleCreateAnother}
+            className="flex-1 rounded-xl bg-gradient-to-r from-brand-700 to-amber-800 px-6 py-4 text-lg font-semibold text-white shadow-glow transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+          >
+            <span>+</span>
+            Create Another
+          </button>
+        </div>
+      )}
     </div>
   );
 }
