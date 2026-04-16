@@ -165,14 +165,14 @@ Backend compile check:
 ### Screenshot 2: Features Section
 ![Screenshot 2 - Features Section](src/assets/S2.png)
 
-### Screenshot 3: PhotoToArt Creation
-![Screenshot 3 - PhotoToArt Creation](src/assets/S3.png)
+### Screenshot 3: Footer
+![Screenshot 3 - Footer](src/assets/S3.png)
 
-### Screenshot 4: TextToArt Generation
-![Screenshot 4 - TextToArt Generation](src/assets/S4.png)
+### Screenshot 4: PhotoToArt Generation
+![Screenshot 4 - PhotoToArt Generation](src/assets/S4.png)
 
-### Screenshot 5: Generated Result
-![Screenshot 5 - Generated Result](src/assets/S5.png)
+### Screenshot 5: TextToArt Creation
+![Screenshot 5 - TextToArt Creation](src/assets/S5.png)
 
 ## Why This Is a Strong Portfolio Project
 
