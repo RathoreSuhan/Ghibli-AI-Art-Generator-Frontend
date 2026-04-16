@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# Ghibli AI Art Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application that creates Studio Ghibli style artwork using Stability AI.
 
-## Available Scripts
+Users can:
+- Upload a photo and transform it into Ghibli-style art (image-to-image)
+- Enter a prompt and generate Ghibli-style art from text (text-to-image)
 
-In the project directory, you can run:
+## Project Structure
 
-### `npm start`
+This project has two applications:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Frontend: `ghbli-art-generator` (React)
+- Backend: `ghbliapi` (Spring Boot + OpenFeign)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Core Features Implemented
 
-### `npm test`
+### 1. Image-to-Image Transformation
+- Users upload an image in PhotoToArt.
+- Frontend sends a multipart request (`image` + `prompt`) to backend.
+- Backend sends request to Stability API and returns generated image bytes.
+- Frontend displays generated image with Download and Create Another actions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Text-to-Image Generation
+- Users provide a text prompt and select a style.
+- Frontend sends JSON payload to backend.
+- Backend maps style/prompt and calls Stability text-to-image endpoint.
+- Generated image is shown in UI with smooth interaction flow.
 
-### `npm run build`
+### 3. Dynamic UI and UX
+- Landing page sections: Hero, Features, Gallery, FAQ, CTA.
+- Dedicated Create page with PhotoToArt and TextToArt tabs.
+- Smooth scrolling navigation behavior from header/footer links.
+- Compact layout updates for better screenshot-friendly composition.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. Post-Generation Workflow
+- Download generated image button with icon and gradient style.
+- Create Another button resets form for next generation.
+- Scroll-to-top behavior after generation and reset for better usability.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 5. Reliable Upload and API Handling
+- Frontend file-size validation for image uploads (5MB).
+- Backend photo generation validation aligned with Stability limits.
+- Improved backend error responses so frontend can show meaningful messages.
+- CORS support for local frontend ports used in development.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 6. Codebase Improvements
+- Component files migrated from `.js` to `.jsx`.
+- Import paths preserved so behavior remains unchanged.
+- Build remains successful after migration.
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend
+- React
+- React Router
+- Tailwind CSS
+- Fetch API
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend
+- Spring Boot
+- Spring Web
+- Spring Cloud OpenFeign
+- Maven
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### External API
+- Stability AI (text-to-image and image-to-image)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## API Endpoints
 
-## Learn More
+Base path: `http://localhost:8080/api/v1`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `POST /generate`
+	- Multipart form-data
+	- Fields: `image`, `prompt`
+	- Response: `image/png`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `POST /generate-from-text`
+	- JSON body
+	- Fields: `prompt`, `style`
+	- Response: `image/png`
 
-### Code Splitting
+## Local Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Prerequisites
+- Node.js 18+
+- Java 21+
+- Maven (or use Maven Wrapper)
+- Stability API key
 
-### Analyzing the Bundle Size
+## 1) Start Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+From the `ghbliapi` folder:
 
-### Making a Progressive Web App
+```bash
+set STABILITY_API_KEY=your_api_key_here
+./mvnw spring-boot:run
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Windows PowerShell:
 
-### Advanced Configuration
+```powershell
+$env:STABILITY_API_KEY="your_api_key_here"
+.\mvnw.cmd spring-boot:run
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Backend runs at:
+- `http://localhost:8080`
 
-### Deployment
+## 2) Start Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+From the `ghbli-art-generator` folder:
 
-### `npm run build` fails to minify
+```bash
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Frontend runs at:
+- `http://localhost:3000`
+
+## Build
+
+Frontend production build:
+
+```bash
+npm run build
+```
+
+Backend compile check:
+
+```bash
+.\mvnw.cmd -DskipTests compile
+```
+
+## Usage
+
+### PhotoToArt Flow
+1. Open Create page
+2. Select PhotoToArt
+3. Click Browse files and upload image (max 5MB)
+4. Add additional details
+5. Click Transform to Ghibli Art
+6. Download result or click Create Another
+
+### TextToArt Flow
+1. Open Create page
+2. Select TextToArt
+3. Choose style
+4. Enter description prompt
+5. Click Generate Ghibli Art
+6. Download result or click Create Another
+
+## Notes
+
+- If you see network errors, verify backend is running on port `8080`.
+- If photo upload fails, check image size (must be 5MB or less).
+- Keep `STABILITY_API_KEY` set in backend environment.
+
+## Why This Is a Strong Portfolio Project
+
+- Full-stack delivery from end to end:
+	This project shows complete product thinking across frontend and backend, from UI interactions in React to API orchestration in Java/Spring Boot.
+
+- Practical third-party AI integration:
+	It demonstrates real-world experience integrating Stability AI, including payload design, request/response handling, error management, and user-friendly feedback.
+
+- Modern frontend engineering:
+	The application uses React Router for multi-page flows and Tailwind CSS for clean, responsive UI implementation, reflecting current production-ready frontend practices.
+
+- Clean backend API design:
+	The backend is built as a clear REST service with Spring Boot and uses Feign-based communication patterns for external service calls, aligned with maintainable service architecture principles.
+
+- Product-quality user experience focus:
+	Beyond core generation logic, the app includes polished UX details such as smooth scrolling behavior, reset/download workflows, compact responsive layouts, and validation safeguards.
+
+## License
+
+This project is for educational and portfolio use.
