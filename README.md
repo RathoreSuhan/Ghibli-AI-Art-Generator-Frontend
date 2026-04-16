@@ -157,6 +157,23 @@ Backend compile check:
 - If photo upload fails, check image size (must be 5MB or less).
 - Keep `STABILITY_API_KEY` set in backend environment.
 
+## Project Screenshots
+
+### Screenshot 1: Home Page
+![Screenshot 1 - Home Page](src/assets/S1.png)
+
+### Screenshot 2: Features Section
+![Screenshot 2 - Features Section](src/assets/S2.png)
+
+### Screenshot 3: PhotoToArt Creation
+![Screenshot 3 - PhotoToArt Creation](src/assets/S3.png)
+
+### Screenshot 4: TextToArt Generation
+![Screenshot 4 - TextToArt Generation](src/assets/S4.png)
+
+### Screenshot 5: Generated Result
+![Screenshot 5 - Generated Result](src/assets/S5.png)
+
 ## Why This Is a Strong Portfolio Project
 
 - Full-stack delivery from end to end:
