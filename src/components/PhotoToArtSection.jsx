@@ -28,6 +28,28 @@ function PhotoToArtSection() {
     }
   };
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDragLeave = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const mockEvent = { target: { files: [file] } };
+      handleImageChange(mockEvent);
+    }
+  };
+
   const handleImageChange = (event) => {
     const file = event.target.files?.[0] ?? null;
 
@@ -155,7 +177,12 @@ function PhotoToArtSection() {
       <div className="rounded-3xl bg-white p-5 shadow-card ring-1 ring-stone-200 sm:p-6">
         <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">Photo to Ghibli Art</h1>
 
-        <div className="mt-4 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50/80 p-5 text-center sm:p-6">
+        <div 
+          className="mt-4 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50/80 p-5 text-center sm:p-6"
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <input
             ref={fileInputRef}
             type="file"
